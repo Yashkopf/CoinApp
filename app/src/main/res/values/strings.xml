@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">CoinApp</string>
-    <string name="symbols_template">%s / %s</string>
-    <string name="last_update_template">Last update time: %s</string>
-</resources>
