@@ -18,9 +18,7 @@ import java.util.Locale
 
 class CoinDetailActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: CoinViewModel
     private lateinit var binding: ActivityCoinDetailBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,34 +28,28 @@ class CoinDetailActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL)?: run{
-            finish()
-            return
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.fragmentContainer)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        viewModel.getDetailInfo(fromSymbol).observe(this, Observer {
-            val priceFormat = DecimalFormat("#,###.##", DecimalFormatSymbols(Locale.US))
-            binding.tvPrice.text = priceFormat.format(it.price)
-            binding.tvMinDealPrice.text = priceFormat.format(it.low24hour)
-            binding.tvMaxDealPrice.text = priceFormat.format(it.high24hour)
-            binding.tvLastDealMarket.text = it.lastMarket
-            binding.tvLastTimeUpdate.text = it.lastUpdate
-            binding.tvFromSymbols.text = it.fromSymbol
-            binding.tvToSymbols.text = it.toSymbol
-            Picasso.get().load(it.imageUrl).into(binding.ivDetailLogo)
-        })
+
+        val fromSymbol = intent.getStringExtra(EXTRA_FROM_SYMBOL) ?: run {
+            finish()
+            return
+        }
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, CoinDetailFragment.newInstance(fromSymbol))
+                .commit()
+        }
     }
 
     companion object {
-       private const val EXTRA_FROM_SYMBOL = "fSym"
+        private const val EXTRA_FROM_SYMBOL = "fSym"
 
-        fun newIntent (context: Context, fromSymbol: String): Intent{
+        fun newIntent(context: Context, fromSymbol: String): Intent {
             val intent = Intent(context, CoinDetailActivity::class.java)
             intent.putExtra(EXTRA_FROM_SYMBOL, fromSymbol)
             return intent
