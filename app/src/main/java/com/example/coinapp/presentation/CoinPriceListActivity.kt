@@ -33,7 +33,7 @@ class CoinPriceListActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this) { value ->
-            adapter.coinInfoList = value
+            adapter.submitList(value)
         }
     }
     private fun initSystemBar() {

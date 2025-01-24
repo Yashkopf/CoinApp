@@ -4,30 +4,28 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinapp.R
 import com.example.coinapp.databinding.ItemCoinInfoBinding
 import com.example.coinapp.domain.CoinInfo
-import com.example.coinapp.presentation.CoinInfoViewHolder
+import com.example.coinapp.presentation.adapters.CoinInfoViewHolder
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 
 
-class CoinInfoAdapter(private val onItemClick: (CoinInfo) -> Unit) : RecyclerView.Adapter<CoinInfoViewHolder>() {
-
-
-    var coinInfoList: List<CoinInfo> = listOf()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class CoinInfoAdapter(private val onItemClick: (CoinInfo) -> Unit) :
+    ListAdapter<CoinInfo, CoinInfoViewHolder>
+        (
+        CoinInfoDiffCallBack()
+    ) {
 
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ) = CoinInfoViewHolder(
         ItemCoinInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
@@ -36,9 +34,9 @@ class CoinInfoAdapter(private val onItemClick: (CoinInfo) -> Unit) : RecyclerVie
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(
         holder: CoinInfoViewHolder,
-        position: Int
+        position: Int,
     ) {
-        val coin = coinInfoList[position]
+        val coin = getItem(position)
         holder.binding.apply {
             val symbolsTemplate = root.context.getString(R.string.symbols_template)
             val lasUpdateTemplate = root.context.getString(R.string.last_update_template)
@@ -52,9 +50,5 @@ class CoinInfoAdapter(private val onItemClick: (CoinInfo) -> Unit) : RecyclerVie
             }
         }
         Log.e("gere", "$coin")
-    }
-
-    override fun getItemCount(): Int {
-        return coinInfoList.size
     }
 }
