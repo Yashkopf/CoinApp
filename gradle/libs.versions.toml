@@ -22,6 +22,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "adapterRxjava2" }
 rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
 rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava" }
 

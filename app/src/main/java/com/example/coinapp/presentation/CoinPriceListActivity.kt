@@ -1,6 +1,5 @@
-package com.example.coinapp
+package com.example.coinapp.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coinapp.adapters.CoinInfoAdapter
+import com.example.coinapp.R
+import com.example.coinapp.presentation.adapters.CoinInfoAdapter
 
 class CoinPriceListActivity : AppCompatActivity() {
 
@@ -29,9 +29,9 @@ class CoinPriceListActivity : AppCompatActivity() {
         initSystemBar()
 
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-        viewModel.priceList.observe(this, Observer {
-           adapter.coinInfoList = it
-        })
+        viewModel.coinInfoList.observe(this) { value ->
+            adapter.coinInfoList = value
+        }
     }
     private fun initSystemBar() {
         enableEdgeToEdge()

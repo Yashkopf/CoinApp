@@ -1,4 +1,4 @@
-package com.example.coinapp
+package com.example.coinapp.presentation
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.coinapp.R
 import com.example.coinapp.databinding.ActivityCoinDetailBinding
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
@@ -46,10 +47,10 @@ class CoinDetailActivity : AppCompatActivity() {
             binding.tvMinDealPrice.text = priceFormat.format(it.low24hour)
             binding.tvMaxDealPrice.text = priceFormat.format(it.high24hour)
             binding.tvLastDealMarket.text = it.lastMarket
-            binding.tvLastTimeUpdate.text = it.getFormattedTime()
+            binding.tvLastTimeUpdate.text = it.lastUpdate
             binding.tvFromSymbols.text = it.fromSymbol
             binding.tvToSymbols.text = it.toSymbol
-            Picasso.get().load(it.getFullImageUrl()).into(binding.ivDetailLogo)
+            Picasso.get().load(it.imageUrl).into(binding.ivDetailLogo)
         })
     }
 

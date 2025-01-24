@@ -49,9 +49,14 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.rxandroid)
-    implementation(libs.rxjava)
-    implementation(libs.adapter.rxjava2)
     implementation(libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    implementation("androidx.work:work-runtime-ktx:2.10.0")
 
     kapt(libs.lifecycle.compiler)
     implementation(libs.lifecycle.viewmodel.ktx)

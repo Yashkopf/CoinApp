@@ -1,14 +1,13 @@
-package com.example.coinapp.pojo
+package com.example.coinapp.data.network.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.coinapp.api.ApiFactory.BASE_IMAGE_URL
-import com.example.coinapp.utils.convertTimestampToTime
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.math.BigDecimal
 
 @Entity(tableName = "full_price_list")
-data class CoinPriceInfo(
+data class CoinInfoDto(
     @SerializedName("TYPE")
     @Expose
     var type: String?,
@@ -56,7 +55,7 @@ data class CoinPriceInfo(
 
     @SerializedName("LASTUPDATE")
     @Expose
-    var lastUpdate: Int?,
+    var lastUpdate: Long?,
 
     @SerializedName("LASTVOLUME")
     @Expose
@@ -94,11 +93,5 @@ data class CoinPriceInfo(
     @Expose
     var imageUrl: String?
 ) {
-    fun getFormattedTime(): String {
-        return convertTimestampToTime(lastUpdate?.toLong())
-    }
 
-    fun getFullImageUrl(): String {
-        return BASE_IMAGE_URL + imageUrl
-    }
 }

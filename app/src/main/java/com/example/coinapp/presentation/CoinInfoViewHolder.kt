@@ -1,6 +1,5 @@
-package com.example.coinapp
+package com.example.coinapp.presentation
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinapp.databinding.ItemCoinInfoBinding
 
