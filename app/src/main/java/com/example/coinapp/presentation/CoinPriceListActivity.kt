@@ -5,27 +5,30 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinapp.R
+import com.example.coinapp.databinding.ActivityCoinPriceListBinding
 import com.example.coinapp.presentation.adapters.CoinInfoAdapter
 
 class CoinPriceListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: CoinViewModel
+    private lateinit var binding: ActivityCoinPriceListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_coin_price_list)
 
-        val rvCoinPriceList = findViewById<RecyclerView>(R.id.rvCoinPriceList)
+        binding = ActivityCoinPriceListBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         val adapter = CoinInfoAdapter ( onItemClick = {
             val intent = CoinDetailActivity.newIntent(this@CoinPriceListActivity, it.fromSymbol)
             startActivity(intent)
         })
-        rvCoinPriceList.adapter = adapter
+        binding.rvCoinPriceList.adapter = adapter
         initSystemBar()
 
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
